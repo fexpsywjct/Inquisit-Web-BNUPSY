@@ -1,0 +1,88 @@
+﻿<item instruction>
+	/1="您好，欢迎您参加我们的实验，请您仔细阅读以下内容：
+在实验进行时，屏幕中央会随机出现红色或绿色的汉字，
+	如果字体的颜色是红色，请按“F”键；
+	如果字体的颜色是绿色，请按“J”键。
+           如果您已了解实验内容，请按任意键继续。"
+</item>
+
+<item word>
+	/1 = "红"
+	/2 = "绿"
+</item>
+
+<text corres>
+	/items = ("正确")
+	/fontstyle = ("微软雅黑", 52pt)
+	/txcolor = white
+	/txbgcolor = (transparent)
+</text>
+
+<text errres>
+	/items = ("错误")
+	/fontstyle = ("微软雅黑", 52pt)
+	/txcolor = white
+	/txbgcolor = (transparent)
+</text>
+
+<text instruction>
+	/items = instruction
+	/fontstyle = ("微软雅黑",40pt)
+	/txcolor = white
+	/txbgcolor = (transparent)
+	/hjustify = center
+</text>
+
+<text green>
+	/items = word
+	/fontstyle=("微软雅黑",128ptc)
+	/txcolor = green
+	/txbgcolor = (transparent)
+</text>
+
+<text red>
+	/items = word
+	/fontstyle = ("微软雅黑",128ptc)
+	/txcolor = red
+	/txbgcolor = (transparent)
+</text>
+
+<trial instruction>
+	/validresponse = (anyresponse)
+	/stimulusframes = [1=instruction]
+	/recorddata = false
+</trial>
+
+<trial greentrial>
+	/correctmessage = (corres,500)
+	/errormessage = (errres,500)
+	/validresponse = ("F","J")
+	/correctresponse = ("J")
+	/pretrialpause = 500
+	/stimulusframes = [1 = green]
+</trial>
+
+<trial redtrial>
+	/correctmessage = (corres,500)
+	/errormessage = (errres,500)
+	/pretrialpause = 500
+	/validresponse = ("F","J")
+	/correctresponse = ("F")
+	/stimulusframes = [1 = red]
+</trial>
+
+<block instruction>
+  /screencolor = black
+  /trials = [1 = instruction]
+</block>
+
+
+<block redandgreen>
+	/screencolor = black
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1-16 = noreplace(redtrial, greentrial)]
+</block>
+
+<expt>
+	/blocks = [1=instruction;2 = redandgreen]
+</expt>
